@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+const SeconsCounter = ({ seconds }) => {
+const [currentSeconds, setCurrentSeconds] = useState(seconds);
 
-//create your first component
-const Home = () => {
+useEffect(() => {
+const instervalid = setInterval(() => {
+	setCurrentSeconds((prevSeconds) => prevSeconds + 1);
+}, 1000);
+	
+return () => clearInterval(instervalid);
+
+}, []);
+
+return (
+<div>
+	<i className="fas fas-clock"></i> {currentSeconds}
+</div>
+);
+};
+
+// Example usage in your app
+const App = () => {
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div>
+			<h1>Seconds Counter</h1>
+			<SeconsCounter seconds={0} />
 		</div>
 	);
 };
 
-export default Home;
+export default App;
